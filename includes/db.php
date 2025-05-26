@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'ctfroom';
+$dbname = 'scoreapp';
 $username = 'root'; // Default XAMPP MySQL user (change if needed)
 $password = '';     // Default XAMPP MySQL password (change if needed)
 

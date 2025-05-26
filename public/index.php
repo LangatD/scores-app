@@ -18,10 +18,16 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Public Scoreboard</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Auto-refresh every 10 seconds -->
-    <meta http-equiv="refresh" content="10">
+    <!-- Auto-refresh every 30 seconds -->
+    <meta http-equiv="refresh" content="30">
 </head>
 <body>
+    <nav style="background-color: #f8f9fa; padding: 10px; text-align: center;">
+    <a href="../public/">Public Scoreboard</a> |
+    <a href="../admin/">Admin Panel</a> |
+    <a href="../judge/">Judge Portal</a> |
+    <a href="../">Home</a>
+</nav>
     <h1>Public Scoreboard</h1>
     <table>
         <thead>

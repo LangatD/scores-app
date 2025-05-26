@@ -30,6 +30,12 @@ $judges = $pdo->query("SELECT * FROM judges")->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <nav style="background-color: #f8f9fa; padding: 10px; text-align: center;">
+    <a href="../public/">Public Scoreboard</a> |
+    <a href="../admin/">Admin Panel</a> |
+    <a href="../judge/">Judge Portal</a> |
+    <a href="../">Home</a>
+</nav>
     <h1>Admin Panel - Manage Judges</h1>
     <form method="POST">
         <label>Username: <input type="text" name="username" required></label><br>
@@ -47,4 +53,5 @@ $judges = $pdo->query("SELECT * FROM judges")->fetchAll(PDO::FETCH_ASSOC);
         <?php endforeach; ?>
     </ul>
 </body>
+
 </html>

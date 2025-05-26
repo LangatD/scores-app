@@ -35,6 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <nav style="background-color: #f8f9fa; padding: 10px; text-align: center;">
+    <a href="../public/">Public Scoreboard</a> |
+    <a href="../admin/">Admin Panel</a> |
+    <a href="../judge/">Judge Portal</a> |
+    <a href="../">Home</a>
+</nav>
     <h1>Judge Portal - Assign Scores</h1>
 
     <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>

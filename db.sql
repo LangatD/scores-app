@@ -21,6 +21,8 @@ CREATE TABLE scores (
     FOREIGN KEY (judge_id) REFERENCES judges(id)
 );
 INSERT INTO users (username, display_name)
-VALUES ('user1', 'Alice Smith'),
-    ('user2', 'Bob Johnson'),
-    ('user3', 'Charlie Brown');
+VALUES ('user1', 'Daniel Moss'),
+    ('user2', 'Rachel Green'),
+    ('user3', 'Ross Geller');
+('user4', 'Regina phalange');
+('user5', 'sheldon cooper');
