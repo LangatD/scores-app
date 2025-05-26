@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
-$dbname = 'scoreapp';
-$username = 'root'; // Default XAMPP MySQL user (change if needed)
-$password = '';     // Default XAMPP MySQL password (change if needed)
+$host = 'sql303.infinityfree.com';
+$dbname = 'if0_39085759_scoreapp';
+$username = 'if0_36594237'; 
+$password = 'V2DsRXdxC5v';     
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
