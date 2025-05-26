@@ -1,7 +1,7 @@
 <?php
 $host = 'sql303.infinityfree.com';
 $dbname = 'if0_39085759_scoreapp';
-$username = 'if0_36594237'; 
+$username = 'if0_39085759'; 
 $password = 'V2DsRXdxC5v';     
 
 try {
