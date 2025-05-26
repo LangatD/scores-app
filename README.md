@@ -20,13 +20,13 @@ This project implements a scoring system using the LAMP stack (Linux, Apache, My
    - Import the `db.sql` file or run the SQL commands to create tables and insert sample data.
 
 3. **Project Files**:
-   - Copy the project folder to `htdocs/scoreapp`.
+   - Copy the project folder to `htdocs/score-app`.
    - Access the project via `http://localhost/score-app`.
 
 4. **Access Interfaces**:
-   - Public Scoreboard: `http://localhost/ctfroom/public`
-   - Admin Panel: `http://localhost/ctfroom/admin`
-   - Judge Portal: `http://localhost/ctfroom/judge`
+   - Public Scoreboard: `http://localhost/scores-app/public`
+   - Admin Panel: `http://localhost/scores-app/admin`
+   - Judge Portal: `http://localhost/scores-app/judge`
 
 ## Database Schema
 - **users**: Stores event participants (`id`, `username`, `display_name`).
