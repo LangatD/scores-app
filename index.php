@@ -35,7 +35,7 @@
     <p>Select your role to get started:</p>
     <div class="nav-links">
         <a href="public/">Public Scoreboard</a>
-        <a href="admin/">Admin Panel</a>
+        <a href="admin/index">Admin Panel</a>
         <a href="judge/">Judge Portal</a>
     </div>
 </body>

@@ -1,11 +1,15 @@
 <?php
+
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once '../includes/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $display_name = trim($_POST['display_name']);
 
-    // Basic form validation
+    // form validation
     if (empty($username) || empty($display_name)) {
         $error = "All fields are required.";
     } else {
@@ -31,27 +35,54 @@ $judges = $pdo->query("SELECT * FROM judges")->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <nav style="background-color: #f8f9fa; padding: 10px; text-align: center;">
-    <a href="../public/">Public Scoreboard</a> |
-    <a href="../admin/">Admin Panel</a> |
-    <a href="../judge/">Judge Portal</a> |
-    <a href="../">Home</a>
-</nav>
-    <h1>Admin Panel - Manage Judges</h1>
-    <form method="POST">
-        <label>Username: <input type="text" name="username" required></label><br>
-        <label>Display Name: <input type="text" name="display_name" required></label><br>
-        <button type="submit">Add Judge</button>
-    </form>
+        <a href="../public/">Public Scoreboard</a> |
+        <a href="../admin/">Admin Panel</a> |
+        <a href="../judge/">Judge Portal</a> |
+        <a href="../">Home</a>
+    </nav>
 
-    <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
-    <?php if (isset($success)) echo "<p style='color: green;'>$success</p>"; ?>
+    <div class="form-table">
+        <h1>Admin Panel - Manage Judges</h1>
 
-    <h2>Existing Judges</h2>
-    <ul>
-        <?php foreach ($judges as $judge): ?>
-            <li><?php echo htmlspecialchars($judge['username']) . " (" . htmlspecialchars($judge['display_name']) . ")"; ?></li>
-        <?php endforeach; ?>
-    </ul>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-error"><?= $error ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($success)): ?>
+            <div class="alert alert-success"><?= $success ?></div>
+        <?php endif; ?>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Display Name:</label>
+                <input type="text" name="display_name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Judge</button>
+        </form>
+
+        <div class="existing-list">
+            <h2>Existing Judges</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Display Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($judges as $judge): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($judge['username']) ?></td>
+                        <td><?= htmlspecialchars($judge['display_name']) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
-
 </html>

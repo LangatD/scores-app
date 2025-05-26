@@ -40,7 +40,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </thead>
         <tbody>
             <?php $rank = 1; foreach ($users as $user): ?>
-                <tr <?php if ($rank == 1) echo 'style="background-color: #ffd700;"'; // Highlight top scorer ?>>
+                <tr <?php if ($rank == 1) echo 'style="background-color: #ffd700;"';  ?>>
                     <td><?php echo $rank++; ?></td>
                     <td><?php echo htmlspecialchars($user['username']); ?></td>
                     <td><?php echo htmlspecialchars($user['display_name']); ?></td>

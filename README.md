@@ -44,7 +44,12 @@ This project implements a scoring system using the LAMP stack (Linux, Apache, My
 - **Frontend**: Kept the UI simple with basic HTML/CSS for usability. Added auto-refresh to the scoreboard.
 - **Error Handling**: Basic validation for scores (1-100) and form inputs.
 
+## Additional Features (If I Had More Time)
+- Add login functionality for admins and judges using sessions and password hashing.
+- Implement responsive design for better mobile support.
+- Add the ability for admins to manage users (add/edit/delete).
+- Include a history of scores per user on the judge portal.
 
 ## Publicly Accessible Link
-- Since this is a local project, deploy it to a hosting service (e.g., GitHub Pages for static files or a PHP hosting service) to get a public URL.
-- Alternatively, use a tool like ngrok to expose your local server: `ngrok http 80`.
+-project is hosted on infinityfree
+link: https://scoreapp.infinityfreeapp.com/

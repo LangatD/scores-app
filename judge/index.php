@@ -1,27 +1,33 @@
 <?php
 require_once '../includes/db.php';
 
-// Fetch all users
+// Fetch all users and judges
 $users = $pdo->query("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
-
-// Fetch all judges for the dropdown
 $judges = $pdo->query("SELECT * FROM judges")->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
-    $judge_id = $_POST['judge_id'];
-    $score = (int)$_POST['score'];
+$error = null;
+$success = null;
 
-    // Validate score
-    if ($score < 1 || $score > 100) {
-        $error = "Score must be between 1 and 100.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Validate required fields exist first
+    if (!isset($_POST['judge_id'], $_POST['score'], $_POST['user_id'])) {
+        $error = "All fields are required!";
     } else {
-        try {
-            $stmt = $pdo->prepare("INSERT INTO scores (user_id, judge_id, score) VALUES (?, ?, ?)");
-            $stmt->execute([$user_id, $judge_id, $score]);
-            $success = "Score submitted successfully!";
-        } catch (PDOException $e) {
-            $error = "Error submitting score: " . $e->getMessage();
+        $user_id = $_POST['user_id'];
+        $judge_id = $_POST['judge_id'];
+        $score = (int)$_POST['score'];
+
+        // Validate score range
+        if ($score < 1 || $score > 100) {
+            $error = "Score must be between 1 and 100.";
+        } else {
+            try {
+                $stmt = $pdo->prepare("INSERT INTO scores (user_id, judge_id, score) VALUES (?, ?, ?)");
+                $stmt->execute([$user_id, $judge_id, $score]);
+                $success = "Score submitted successfully!";
+            } catch (PDOException $e) {
+                $error = "Error submitting score: " . $e->getMessage();
+            }
         }
     }
 }
@@ -36,42 +42,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <nav style="background-color: #f8f9fa; padding: 10px; text-align: center;">
-    <a href="../public/">Public Scoreboard</a> |
-    <a href="../admin/">Admin Panel</a> |
-    <a href="../judge/">Judge Portal</a> |
-    <a href="../">Home</a>
-</nav>
-    <h1>Judge Portal - Assign Scores</h1>
+        <a href="../public/">Public Scoreboard</a> |
+        <a href="../admin/">Admin Panel</a> |
+        <a href="../judge/">Judge Portal</a> |
+        <a href="../">Home</a>
+    </nav>
 
-    <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
-    <?php if (isset($success)) echo "<p style='color: green;'>$success</p>"; ?>
+    <div class="form-table">
+        <h1>Judge Portal - Assign Scores</h1>
 
-    <h2>Users</h2>
-    <ul>
-        <?php foreach ($users as $user): ?>
-            <li>
-                <?php echo htmlspecialchars($user['display_name']) . " (" . htmlspecialchars($user['username']) . ")"; ?>
-                <form method="POST" style="display: inline;">
-                    <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
-                    <label>
-                        Judge:
-                        <select name="judge_id" required>
+        <?php if ($error): ?>
+            <div class="alert alert-error"><?= $error ?></div>
+        <?php endif; ?>
+
+        <?php if ($success): ?>
+            <div class="alert alert-success"><?= $success ?></div>
+        <?php endif; ?>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Judge Selection</th>
+                    <th>Score</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                <tr>
+                    <td>
+                        <?= htmlspecialchars($user['display_name']) ?><br>
+                        <small>@<?= htmlspecialchars($user['username']) ?></small>
+                    </td>
+                    <td>
+                        <select class="form-control" name="judge_id" required>
                             <option value="">Select Judge</option>
                             <?php foreach ($judges as $judge): ?>
-                                <option value="<?php echo $judge['id']; ?>">
-                                    <?php echo htmlspecialchars($judge['display_name']); ?>
-                                </option>
+                            <option value="<?= $judge['id'] ?>">
+                                <?= htmlspecialchars($judge['display_name']) ?>
+                            </option>
                             <?php endforeach; ?>
                         </select>
-                    </label>
-                    <label>
-                        Score (1-100):
-                        <input type="number" name="score" min="1" max="100" required>
-                    </label>
-                    <button type="submit">Submit Score</button>
-                </form>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" 
+                               name="score" min="1" max="100" required>
+                    </td>
+                    <td>
+                        <form method="POST">
+                            <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
